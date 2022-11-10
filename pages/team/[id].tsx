@@ -1,27 +1,35 @@
 import { useQuery } from "@apollo/client";
-import { GET_ALL_PLAYERS_QUERY } from "../../data-access/player/player.queries";
+import { useRouter } from "next/router";
+import { GetAllPlayersByTeamQueryResponse, GET_ALL_PLAYERS_BY_TEAM_QUERY } from "../../data-access/player/player.queries";
 
-export default function TeamDetails(){
-const { loading, error, data } = useQuery(GET_ALL_PLAYERS_QUERY);
+export default function TeamDetails() {
+
+  const { query } = useRouter();
+
+  const { loading, error, data } = useQuery<GetAllPlayersByTeamQueryResponse>(GET_ALL_PLAYERS_BY_TEAM_QUERY, {
+    variables: {
+      teamId: query.id,
+    }
+  });
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  if (error) return <p>Error :</p>;
   return <>
-  <ul>
+    <ul>
 
-  {data.getAllPlayers.map(({ id,
-    name,
-    team,
-    position,
-    birth,
-    height,
-    weight,
-    foot }) => (
-        
+      {data!.getAllPlayersByTeam.map(({ id,
+        name,
+        team,
+        position,
+        birth,
+        height,
+        weight,
+        foot }) => (
+
         <li>{name}</li>
-    
-  ))}
-  </ul>
+
+      ))}
+    </ul>
   </>
 
 }

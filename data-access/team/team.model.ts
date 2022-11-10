@@ -5,3 +5,7 @@ export interface Team {
     background: string;
 }
 
+export interface TeamBasic {
+    id: string;
+    name: string;
+}

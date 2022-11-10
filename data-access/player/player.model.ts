@@ -1,22 +1,22 @@
 import { Team } from "../team/team.model";
 
 export enum PlayerPosition {
-    GK,
-    CM,
-    CDM,
-    ST,
-    CAM,
-    CB,
-    RB,
-    RWB,
-    LWB,
-    LR,
-    LW
+    GK = "GK",
+    CM = "CM",
+    CDM = "CDM",
+    ST = "ST",
+    CAM = "CAM",
+    CB = "CB",
+    RB = "RB",
+    RWB = "RWB",
+    LWB = "LWB",
+    LR = "LR",
+    LW = "LW"
 }
 
 export enum PlayerFoot {
-    LEFT,
-    RIGHT
+    LEFT = "LEFT",
+    RIGHT = "RIGHT"
 }
 
 export interface Player {

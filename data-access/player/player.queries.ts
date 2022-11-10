@@ -1,8 +1,9 @@
 import { gql } from "@apollo/client";
+import { Player } from "./player.model";
 
-export const GET_ALL_PLAYERS_QUERY = gql`
-query findAllPlayersComplete {
-  getAllPlayers{
+export const GET_ALL_PLAYERS_BY_TEAM_QUERY = gql`
+query findAllPlayersByTeamComplete($teamId: ID) {
+  getAllPlayersByTeam(teamId: $teamId) {
     id
     name
     team {
@@ -14,3 +15,5 @@ query findAllPlayersComplete {
   }
 }
 `;
+
+export type GetAllPlayersByTeamQueryResponse = { getAllPlayersByTeam: Player[] };
