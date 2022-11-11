@@ -4,7 +4,7 @@ import type { AppProps } from 'next/app'
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: 'https://3000-sebasg22-summitbackend-1y19dd2frz7.ws-us75.gitpod.io/graphql',
+  uri: 'https://3000-sebasg22-summitbackend-srelrw4hln7.ws-us75.gitpod.io/graphql',
   cache: new InMemoryCache(),
 });
 

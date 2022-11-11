@@ -1,49 +1,60 @@
 enum PlayerPosition {
-    GK
-    CM
-    CDM
-    ST
-    CAM
-    CB
-    RB
-    RWB
-    LWB
-    LR
-    LW
+  GK
+  CM
+  CDM
+  ST
+  CAM
+  CB
+  RB
+  RWB
+  LWB
+  LR
+  LW
 }
 
 enum PlayerFoot {
-    LEFT
-    RIGHT
+  LEFT
+  RIGHT
 }
 
 type Team {
-    id: ID!
-    name: String!
-    flag_icon: String!
-    background: String!
+  id: ID!
+  name: String!
+  flag_icon: String!
+  background: String!
 }
 
 type Player {
-    id: ID!
-    name: String!
-    team: Team!
-    position: [PlayerPosition!]
-    birth: String!
-    height: Float!
-    weight: Float!
-    foot: PlayerFoot!
+  id: ID!
+  name: String!
+  team: Team!
+  position: [PlayerPosition!]
+  birth: String!
+  height: Float!
+  weight: Float!
+  foot: PlayerFoot!
 }
 
 type Query {
-    getAllTeams: [Team]
-    getAllPlayers: [Player]
-    getAllPlayersByTeam(teamId:ID):[Player] 
-    getAllPlayerByPositions(positions:[PlayerPosition]):[Player] 
-    getAllPlayerByFoot (foot:PlayerFoot):[Player] 
+  getAllTeams: [Team]
+  getAllPlayers: [Player]
+  getAllPlayersByTeam(teamId: ID): [Player]
+  getAllPlayersByTeamWithParameters(
+    teamId: ID
+    foot: PlayerFoot
+    positions: [PlayerPosition]
+  ): [Player]
 }
 
 type Mutation {
-    createTeam(name: String, flag_icon: String, background: String): Team
-    createPlayer(name: String, teamId: String, position: [PlayerPosition], birth: String, height: Float, weight: Float, foot: PlayerFoot): Player
+  createTeam(name: String, flag_icon: String, background: String): Team
+  createPlayer(
+    name: String
+    teamId: String
+    position: [PlayerPosition]
+    birth: String
+    height: Float
+    weight: Float
+    foot: PlayerFoot
+  ): Player
 }
