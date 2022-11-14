@@ -1,16 +1,28 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
 
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  gql,
+} from "@apollo/client";
+import Head from "next/head";
 
 const client = new ApolloClient({
-  uri: 'https://3000-sebasg22-summitbackend-srelrw4hln7.ws-us75.gitpod.io/graphql',
+  uri: "http://localhost:3000/graphql",
   cache: new InMemoryCache(),
 });
 
-
 export default function App({ Component, pageProps }: AppProps) {
-  return <ApolloProvider client={client}>
-    <Component {...pageProps} />
-  </ApolloProvider>
+  return (
+    <ApolloProvider client={client}>
+      <Head>
+        <title>Javascript Summit </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
+
+      <Component {...pageProps} />
+    </ApolloProvider>
+  );
 }
