@@ -7,11 +7,14 @@ query findAllPlayersByTeamComplete($teamId: ID) {
     id
     name
     team {
-        name
+      name
+      flag_icon
     }
     birth
     height
     weight
+    position
+    foot
   }
 }
 `;

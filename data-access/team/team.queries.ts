@@ -24,3 +24,15 @@ query findAllTeamsBasic {
 `;
 
 export type GetAllTeamsBasicQueryResponse = { getAllTeams: TeamBasic[] };
+
+export const GET_TEAM_BY_ID_QUERY = gql`
+query findTeamById($teamId: ID) {
+  getTeamById(teamId: $teamId) {
+    name
+    flag_icon
+    background
+  }
+}
+`;
+
+export type GetTeamById = { getTeamById: Team };
