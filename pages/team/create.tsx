@@ -10,17 +10,15 @@ const inputErrorClasses = "border-2 border-red-500";
 const errorMessageClasses = "absolute text-red-500 bottom-2 text-xs";
 
 export default function CreateTeam() {
-  const { register, handleSubmit, reset, formState } = useForm<Team>();
+  const { register, handleSubmit, reset, formState, watch } = useForm<Team>();
 
   const [createTeam, { data, loading, error }] =
     useMutation(CREATE_TEAM_MUTATION);
 
   const onSubmit = ({ name, flag_icon, background }: Team) => {
-
-    if (!formState.isValid) {
+    if (Object.keys(formState.errors).length !== 0) {
       return;
     }
-
     createTeam({
       variables: {
         name,

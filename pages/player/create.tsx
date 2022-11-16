@@ -11,7 +11,7 @@ const inputErrorClasses = "border-2 border-red-500";
 const errorMessageClasses = "absolute text-red-500 bottom-2 text-xs";
 
 export default function CreatePlayer() {
-  const { register, handleSubmit, reset, formState } = useForm<Player>();
+  const { register, handleSubmit, reset, watch, formState, setValue } = useForm<Player>();
 
   const {
     loading: loadingTeams,
@@ -25,7 +25,7 @@ export default function CreatePlayer() {
   ] = useMutation(CREATE_PLAYER_MUTATION);
 
   const onSubmit = ({ name, teamId, position, birth, height, weight, foot }: Player) => {
-    if (!formState.isValid) {
+    if (Object.keys(formState.errors).length !== 0) {
       return;
     }
     createPlayer({
@@ -41,11 +41,10 @@ export default function CreatePlayer() {
     });
     reset({
       name: "",
-      teamId,
-      position,
-      birth,
-      height,
-      weight,
+      position: undefined,
+      birth: "",
+      height: undefined,
+      weight: undefined,
       foot
     });
   };
@@ -55,6 +54,15 @@ export default function CreatePlayer() {
       console.error(error);
     }
   }, [error]);
+
+  useEffect(() => {
+    const subscription = watch((formData) => {
+      if ((dataTeams?.getAllTeams || []).length > 0 && !formData.teamId) {
+        setValue("teamId", dataTeams?.getAllTeams[0]?.id || "");
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, dataTeams]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -116,7 +124,7 @@ export default function CreatePlayer() {
           }
         </label>
         <label className={labelClasses}>
-          birth
+          Birth
           <input
             className={`${inputClasses} ${formState.errors.birth && inputErrorClasses}`}
             type="date"
