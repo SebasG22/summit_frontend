@@ -1,9 +1,12 @@
 import { useMutation, useQuery } from "@apollo/client";
+import Link from "next/link";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Player, PlayerFoot, PlayerPosition } from "../../data-access/player/player.model";
 import { CREATE_PLAYER_MUTATION } from "../../data-access/player/player.mutation";
 import { GetAllTeamsBasicQueryResponse, GET_ALL_TEAMS_BASIC_QUERY } from "../../data-access/team/team.queries";
+import { ArrowLeftIcon } from '@heroicons/react/24/solid';
+import { useRouter } from "next/router";
 
 const labelClasses = "flex flex-col items-center relative pb-7";
 const inputClasses = "text-black w-full p-1 h-8";
@@ -11,6 +14,7 @@ const inputErrorClasses = "border-2 border-red-500";
 const errorMessageClasses = "absolute text-red-500 bottom-2 text-xs";
 
 export default function CreatePlayer() {
+  const router = useRouter();
   const { register, handleSubmit, reset, watch, formState, setValue } = useForm<Player>();
 
   const {
@@ -49,6 +53,10 @@ export default function CreatePlayer() {
     });
   };
 
+  const goBack = () => {
+    router.back();
+  }
+
   useEffect(() => {
     if (error) {
       console.error(error);
@@ -72,6 +80,10 @@ export default function CreatePlayer() {
     <div
       className="text-center h-screen relative font-qatar text-white"
     >
+      <Link href={""} onClick={goBack} className="absolute left-5 top-0">
+        <ArrowLeftIcon className="h-8 mr-2"/>
+        <span>Back</span>
+      </Link>
       <h1
         className="mt-5 text-3xl"
       >

@@ -1,8 +1,10 @@
 import { useMutation } from "@apollo/client";
+import Link from "next/link";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Team } from "../../data-access/team/team.model";
 import { CREATE_TEAM_MUTATION } from "../../data-access/team/team.mutation";
+import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 
 const labelClasses = "flex flex-col items-center relative pb-7";
 const inputClasses = "text-black w-full p-1 h-8";
@@ -47,6 +49,10 @@ export default function CreateTeam() {
     <div
       className="text-center h-screen relative font-qatar text-white"
     >
+      <Link href="/" className="absolute left-5 top-0">
+        <ArrowLeftIcon className="h-8 mr-2"/>
+        <span>Back</span>
+      </Link>
       <h1
         className="mt-5 text-3xl"
       >

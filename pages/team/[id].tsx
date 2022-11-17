@@ -1,4 +1,6 @@
 import { useQuery } from "@apollo/client";
+import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -50,6 +52,14 @@ export default function TeamDetails() {
 
   return (
     <>
+      <Link
+        href="/"
+        className="absolute left-5 top-2 p-2 font-qatar rounded bg-white hover:bg-gray-100 active:bg-gray-200"
+        style={{color: teamData!.getTeamById.background}}
+      >
+        <ArrowLeftIcon className="h-8 mr-2"/>
+        <span>Back</span>
+      </Link>
       {/*
       <select {...register("filter")}>
         <legend>Choose a filter</legend>
@@ -75,6 +85,15 @@ export default function TeamDetails() {
           <h1 className="font-qatar bg-white py-2 px-6 text-3xl" style={{color: teamData!.getTeamById.background}}>{teamData!.getTeamById.name}</h1>
         </div>
         <ul className="p-4 grid gap-4 lg:gap-5 xl:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+          <li className="bg-gradient-to-b from-orange-400 to-orange-600 h-96 font-qatar text-white text-base">
+            <Link className="flex flex-col justify-end h-full" href="/player/create">
+              <PlusIcon className="w-8/12 text-white block m-auto" />
+              <span className="border-b-4 border-b-orange-700 text-orange-700 text-center text-xl uppercase bg-white py-1.5 mx-4">
+                Add new
+              </span>
+              <span className="text-white px-0 text-sm mb-4">&nbsp;</span>
+            </Link>
+          </li>
           {data!.getAllPlayersByTeam.map(
             ({ id, name, team, position, birth, height, weight, foot }) => (
           <li key={id} className="bg-gradient-to-b from-orange-400 to-orange-600 flex flex-col justify-end h-96 font-qatar text-white text-base">
