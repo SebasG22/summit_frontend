@@ -12,9 +12,9 @@ export default function Home() {
   <div className='relative mx-auto max-w-container px-0 pt-4 md:pt-16 sm:px-6 lg:px-8 lg:pt-20'>
     <h1 className='text-white text-4xl md:text-7xl font-qatar py-2 md:py-8 text-center'>Javascript Summit Qatar World Cup</h1>
     <div className='grid md:gap-4 sm:grid-cols-2
-     md:grid-cols-6 grid-rows-6 mx-4'>
+     md:grid-cols-6 mx-4'>
       <Link href="/team/create">
-        <div className="border-4 border-[#FEC310] px-4 py-4">
+        <div className="border-4 border-[#FEC310] px-4 py-4 h-full">
           <PlusIcon className="w-8/12 text-white block m-auto" />
           <div className="flex justify-center mt-4">
             <span className="text-white text-center text-2xl font-bold font-qatar"> Add new </span>
@@ -22,16 +22,17 @@ export default function Home() {
         </div>
       </Link>
     {data.getAllTeams.map(({ id, name, background, flag_icon }) => (
-    <div key={id}>
-     <div className="border-4 border-[#FEC310] px-4 py-4">
-      <img src={flag_icon} />
+    <Link href={`/team/${id}`}>
+     <div className="border-4 border-[#FEC310] px-4 py-4 h-full">
+      <div className='h-40 flex justify-center'>
+        <img src={flag_icon} />
+      </div>
       <div className='flex justify-center mt-4'>
-      <a className="text-white text-2xl font-bold font-qatar" href={`/team/${id}`} > { name } </a>
-
+        <div className="text-white text-2xl font-bold font-qatar"> { name } </div>
       </div>
      </div> 
       <br />
-    </div>
+    </Link>
   ))}
     </div>
   </div>
