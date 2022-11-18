@@ -1,17 +1,6 @@
-import { useMutation, useQuery } from "@apollo/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  Player,
-  PlayerFoot,
-  PlayerPosition,
-} from "../../data-access/player/player.model";
-import { CREATE_PLAYER_MUTATION } from "../../data-access/player/player.mutation";
-import {
-  GetAllTeamsBasicQueryResponse,
-  GET_ALL_TEAMS_BASIC_QUERY,
-} from "../../data-access/team/team.queries";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 import Loader from "../../components/loader";
@@ -24,19 +13,10 @@ const errorMessageClasses = "absolute text-red-500 bottom-2 text-xs";
 export default function CreatePlayer() {
   const router = useRouter();
   const { register, handleSubmit, reset, watch, formState, setValue } =
-    useForm<Player>();
+    useForm<any>();
 
   const [showToast, setShowToast] = useState(false);
 
-  const {
-    loading: loadingTeams,
-    error: errorTeams,
-    data: dataTeams,
-  } = useQuery<GetAllTeamsBasicQueryResponse>(GET_ALL_TEAMS_BASIC_QUERY);
-
-  const [createPlayer, { data, loading, error }] = useMutation(
-    CREATE_PLAYER_MUTATION
-  );
 
   const onSubmit = ({
     name,
@@ -46,21 +26,12 @@ export default function CreatePlayer() {
     height,
     weight,
     foot,
-  }: Player) => {
+  }: any) => {
     if (Object.keys(formState.errors).length !== 0) {
       return;
     }
-    createPlayer({
-      variables: {
-        name,
-        teamId,
-        positions,
-        birth: birth.toString(),
-        height: +height,
-        weight: +weight,
-        foot,
-      },
-    });
+   
+    
     reset({
       name: "",
       positions: undefined,
@@ -76,22 +47,7 @@ export default function CreatePlayer() {
     router.back();
   };
 
-  useEffect(() => {
-    if (error) {
-      console.error(error);
-    }
-  }, [error]);
-
-  useEffect(() => {
-    const subscription = watch((formData) => {
-      if ((dataTeams?.getAllTeams || []).length > 0 && !formData.teamId) {
-        setValue("teamId", dataTeams?.getAllTeams[0]?.id || "");
-      }
-    });
-    return () => subscription.unsubscribe();
-  }, [watch, dataTeams]);
-
-  if (loading) {
+  if (false) {
     return <Loader />;
   }
 
@@ -130,7 +86,7 @@ export default function CreatePlayer() {
           />
           {formState.errors.name && (
             <span className={errorMessageClasses}>
-              {formState.errors.name.message}
+              {formState?.errors?.name?.message as string}
             </span>
           )}
         </label>
@@ -142,15 +98,15 @@ export default function CreatePlayer() {
             }`}
             {...register("teamId", { required: "required" })}
           >
-            {dataTeams?.getAllTeams.map((team) => (
-              <option key={team.id} value={team.id}>
-                {team.name}
+            {([] as any[]).map((team) => (
+              <option key={team?.id} value={team?.id}>
+                {team?.name}
               </option>
             ))}
           </select>
           {formState.errors.teamId && (
             <span className={errorMessageClasses}>
-              {formState.errors.teamId.message}
+              {formState?.errors?.teamId?.message as string}
             </span>
           )}
         </label>
@@ -163,7 +119,7 @@ export default function CreatePlayer() {
             {...register("positions", { required: "required" })}
             multiple
           >
-            {Object.keys(PlayerPosition).map((playerPosition) => (
+            {Object.keys({}).map((playerPosition) => (
               <option key={playerPosition} value={playerPosition}>
                 {playerPosition}
               </option>
@@ -171,7 +127,7 @@ export default function CreatePlayer() {
           </select>
           {formState.errors.positions && (
             <span className={errorMessageClasses}>
-              {formState.errors.positions.message}
+              {formState?.errors?.positions?.message as string}
             </span>
           )}
         </label>
@@ -186,7 +142,7 @@ export default function CreatePlayer() {
           />
           {formState.errors.birth && (
             <span className={errorMessageClasses}>
-              {formState.errors.birth.message}
+              {formState?.errors?.birth?.message as string}
             </span>
           )}
         </label>
@@ -201,7 +157,7 @@ export default function CreatePlayer() {
           />
           {formState.errors.height && (
             <span className={errorMessageClasses}>
-              {formState.errors.height.message}
+              {formState?.errors?.height?.message as string}
             </span>
           )}
         </label>
@@ -216,7 +172,7 @@ export default function CreatePlayer() {
           />
           {formState.errors.weight && (
             <span className={errorMessageClasses}>
-              {formState.errors.weight.message}
+              {formState?.errors?.weight?.message as string}
             </span>
           )}
         </label>
@@ -228,7 +184,7 @@ export default function CreatePlayer() {
             }`}
             {...register("foot", { required: "required" })}
           >
-            {Object.keys(PlayerFoot).map((playerFoot) => (
+            {Object.keys({}).map((playerFoot) => (
               <option key={playerFoot} value={playerFoot}>
                 {playerFoot}
               </option>
@@ -236,7 +192,7 @@ export default function CreatePlayer() {
           </select>
           {formState.errors.foot && (
             <span className={errorMessageClasses}>
-              {formState.errors.foot.message}
+              {formState?.errors?.foot?.message as string}
             </span>
           )}
         </label>

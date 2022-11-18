@@ -1,9 +1,6 @@
-import { useMutation } from "@apollo/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Team } from "../../data-access/team/team.model";
-import { CREATE_TEAM_MUTATION } from "../../data-access/team/team.mutation";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import Loader from "../../components/loader";
 
@@ -13,24 +10,15 @@ const inputErrorClasses = "border-2 border-red-500";
 const errorMessageClasses = "absolute text-red-500 bottom-2 text-xs";
 
 export default function CreateTeam() {
-  const { register, handleSubmit, reset, formState, watch } = useForm<Team>();
-
-  const [createTeam, { data, loading, error }] =
-    useMutation(CREATE_TEAM_MUTATION);
+  const { register, handleSubmit, reset, formState, watch } = useForm<any>();
 
   const [showToast, setShowToast] = useState(false);
 
-  const onSubmit = ({ name, flag_icon, background }: Team) => {
+  const onSubmit = ({ name, flag_icon, background }: any) => {
     if (Object.keys(formState.errors).length !== 0) {
       return;
     }
-    createTeam({
-      variables: {
-        name,
-        flag_icon,
-        background,
-      },
-    });
+    // submit
     reset({
       name: "",
       flag_icon: "",
@@ -39,13 +27,7 @@ export default function CreateTeam() {
     setShowToast(true);
   };
 
-  useEffect(() => {
-    if (error) {
-      console.error(error);
-    }
-  }, [error]);
-
-  if (loading) {
+  if (false) {
     return <Loader />;
   }
 
@@ -84,7 +66,7 @@ export default function CreateTeam() {
           />
           {formState.errors.name && (
             <span className={errorMessageClasses}>
-              {formState.errors.name.message}
+              {formState?.errors?.name?.message as string}
             </span>
           )}
         </label>
@@ -99,7 +81,7 @@ export default function CreateTeam() {
           />
           {formState.errors.flag_icon && (
             <span className={errorMessageClasses}>
-              {formState.errors.flag_icon.message}
+              {formState?.errors?.flag_icon?.message as string}
             </span>
           )}
         </label>

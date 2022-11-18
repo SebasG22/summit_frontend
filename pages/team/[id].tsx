@@ -1,22 +1,9 @@
-import { useQuery } from "@apollo/client";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import {
-  PlayerFoot,
-  PlayerPosition,
-} from "../../data-access/player/player.model";
-import {
-  GetAllPlayersByTeamWithParametersQueryResponse,
-  GET_ALL_PLAYERS_BY_TEAM_WITH_PARAMETERS_QUERY,
-} from "../../data-access/player/player.queries";
-import {
-  GetTeamById,
-  GET_TEAM_BY_ID_QUERY,
-} from "../../data-access/team/team.queries";
 import WeightIcon from "../../public/img/weight-icon.svg";
 import HeightIcon from "../../public/img/height-icon.svg";
 import Loader from "../../components/loader";
@@ -33,35 +20,14 @@ export default function TeamDetails() {
     setValue("selection", "");
   }, [filter]);
 
-  const {
-    loading: teamLoading,
-    error: teamError,
-    data: teamData,
-  } = useQuery<GetTeamById>(GET_TEAM_BY_ID_QUERY, {
-    variables: {
-      teamId: query.id,
-    },
-  });
-
-  const { loading, error, data } =
-    useQuery<GetAllPlayersByTeamWithParametersQueryResponse>(
-      GET_ALL_PLAYERS_BY_TEAM_WITH_PARAMETERS_QUERY,
-      {
-        variables: {
-          teamId: query.id,
-          ...(filter && selection ? { [filter]: selection } : {}),
-        },
-      }
-    );
-
-  if (teamLoading || loading) return <Loader />;
-  if (teamError || error) return <p>Error :</p>;
+  if (false) return <Loader />;
+  if (false) return <p>Error :</p>;
   return (
     <>
       <Link
         href="/"
         className="absolute left-5 top-2 p-2 font-qatar rounded bg-white hover:bg-gray-100 active:bg-gray-200"
-        style={{ color: teamData!.getTeamById.background }}
+        style={{ color: "color" }}
       >
         <ArrowLeftIcon className="h-8 mr-2" />
         <span>Back</span>
@@ -82,7 +48,7 @@ export default function TeamDetails() {
           {...register("selection")}
         >
           {Object.keys(
-            filter === "positions" ? PlayerPosition : PlayerFoot
+            {}
           ).map((playerOption) => (
             <option key={playerOption} value={playerOption}>
               {playerOption}
@@ -92,19 +58,19 @@ export default function TeamDetails() {
       )}
       <div
         className="h-screen"
-        style={{ backgroundColor: teamData!.getTeamById.background }}
+        style={{ backgroundColor: "color" }}
       >
         <div className="flex flex-col items-center w-full mb-4 pt-4">
           <img
             className="border-4 border-[#FEC310] mb-4"
-            src={teamData!.getTeamById.flag_icon}
+            src={"icon"}
             width="200"
           />
           <h1
             className="font-qatar bg-white py-2 px-6 text-3xl"
-            style={{ color: teamData!.getTeamById.background }}
+            style={{ color: "color" }}
           >
-            {teamData!.getTeamById.name}
+            {"name"}
           </h1>
         </div>
         <ul className="p-4 grid gap-4 lg:gap-5 xl:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
@@ -120,7 +86,7 @@ export default function TeamDetails() {
               <span className="text-white px-0 text-sm mb-4">&nbsp;</span>
             </Link>
           </li>
-          {data!.getAllPlayersByTeamWithParameters.map(
+          {([] as any[]).map(
             ({ id, name, team, positions, birth, height, weight, foot }) => (
               <li
                 key={id}
