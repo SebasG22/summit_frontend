@@ -28,7 +28,7 @@ type Player {
   id: ID!
   name: String!
   team: Team!
-  position: [PlayerPosition!]
+  positions: [PlayerPosition!]
   birth: String!
   height: Float!
   weight: Float!

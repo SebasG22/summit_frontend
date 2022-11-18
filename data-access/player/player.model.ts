@@ -22,9 +22,9 @@ export enum PlayerFoot {
 export interface Player {
     id: string;
     name: string;
-    team?: Team;
+    team: Team;
     teamId: string;
-    position: PlayerPosition[];
+    positions: PlayerPosition[];
     birth: string;
     height: number;
     weight: number;

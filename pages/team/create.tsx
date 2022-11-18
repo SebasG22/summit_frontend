@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Team } from "../../data-access/team/team.model";
 import { CREATE_TEAM_MUTATION } from "../../data-access/team/team.mutation";
-import { ArrowLeftIcon } from '@heroicons/react/24/solid';
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
+import Loader from "../../components/loader";
 
 const labelClasses = "flex flex-col items-center relative pb-7";
 const inputClasses = "text-black w-full p-1 h-8";
@@ -30,8 +31,8 @@ export default function CreateTeam() {
     });
     reset({
       name: "",
-      flag_icon:"",
-      background: ""
+      flag_icon: "",
+      background: "",
     });
   };
 
@@ -41,23 +42,17 @@ export default function CreateTeam() {
     }
   }, [error]);
 
-  if(loading){
-    return <p>Loading...</p>;
+  if (loading) {
+    return <Loader />;
   }
 
   return (
-    <div
-      className="text-center h-screen relative font-qatar text-white"
-    >
+    <div className="text-center h-screen relative font-qatar text-white">
       <Link href="/" className="absolute left-5 top-0">
-        <ArrowLeftIcon className="h-8 mr-2"/>
+        <ArrowLeftIcon className="h-8 mr-2" />
         <span>Back</span>
       </Link>
-      <h1
-        className="mt-5 text-3xl"
-      >
-        Create a team
-      </h1>
+      <h1 className="mt-5 text-3xl">Create a team</h1>
       <form
         className="flex flex-col justify-between m-auto w-80 py-20"
         onSubmit={handleSubmit(onSubmit)}
@@ -65,37 +60,39 @@ export default function CreateTeam() {
         <label className={labelClasses}>
           Name
           <input
-            className={`${inputClasses} ${formState.errors.name && inputErrorClasses}`}
+            className={`${inputClasses} ${
+              formState.errors.name && inputErrorClasses
+            }`}
             type="text"
-            {...register("name", {required: "required"})}
+            {...register("name", { required: "required" })}
           />
-          { formState.errors.name &&
+          {formState.errors.name && (
             <span className={errorMessageClasses}>
               {formState.errors.name.message}
             </span>
-          }
+          )}
         </label>
         <label className={labelClasses}>
           Flag Icon
           <input
-            className={`${inputClasses} ${formState.errors.flag_icon && inputErrorClasses}`}
+            className={`${inputClasses} ${
+              formState.errors.flag_icon && inputErrorClasses
+            }`}
             type="text"
-            {...register("flag_icon", {required: "required"})}
+            {...register("flag_icon", { required: "required" })}
           />
-          { formState.errors.flag_icon &&
+          {formState.errors.flag_icon && (
             <span className={errorMessageClasses}>
               {formState.errors.flag_icon.message}
             </span>
-          }
+          )}
         </label>
-        <label
-          className={labelClasses}
-        >
+        <label className={labelClasses}>
           Background
           <input
             className={`${inputClasses} w-20 p-0`}
             type="color"
-            {...register("background", {required: "required"})}
+            {...register("background", { required: "required" })}
           />
         </label>
         <button

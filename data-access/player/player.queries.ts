@@ -26,6 +26,7 @@ query findAllPlayersByTeamAndParametersComplete($teamId: ID, $foot: PlayerFoot, 
     name
     team {
         name
+        background
     }
     birth
     height
